@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <!--    <script src="../static/js/vue.js"></script>-->
+    <!--    <script src="../static/js/axios.min.js"></script>-->
+</head>
+<body>
+<!--<div id="app">-->
+<!-- 注册页面 需要用户名 密码 邮箱-->
+<form action="/community/register" method="post">
+    <input name="username" placeholder="请输入用户名" type="text"><br>
+    <input name="password" placeholder="请输入密码" type="password"><br>
+    <input name="email" placeholder="请输入邮箱" type="text"><br>
+    <input type="submit" value="注册">
+</form>
+<!--</div>-->
+<!--<script>-->
+<!--    new Vue({-->
+<!--        el: '#app',-->
+<!--        data: {-->
+<!--            username: '',-->
+<!--            code: '',-->
+<!--            message: ''-->
+<!--        },-->
+<!--        methods: {-->
+<!--            register: function () {-->
+<!--                // 发送axios请求-->
+<!--                axios({-->
+<!--                    url: '/community/checkUser',-->
+<!--                    method: 'get',-->
+<!--                    params: this.username-->
+<!--                }).then((result) => {-->
+<!--                    this.code = result.data.code;-->
+<!--                    if (this.code === -4) {-->
+<!--                        this.message = result.data.message;-->
+<!--                    }-->
+<!--                });-->
+
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+</body>
+</html>
