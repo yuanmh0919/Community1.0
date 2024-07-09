@@ -45,4 +45,22 @@ public class UserService implements Constant {
             return new Result();
         }
     }
+
+    /**
+     * 根据用户id查询用户
+     *
+     * @param id 用户id
+     * @return 用户对象
+     */
+    public Result findUserById(int id) throws Exception {
+        User user = userMapper.selectUserById(id);
+        if (user != null) {
+            Result result = new Result();
+            result.setData(user);
+            return result;
+        } else {
+            return new Result(USER_NOT_EXIST, "用户不存在");
+        }
+    }
+
 }

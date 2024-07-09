@@ -1,4 +1,4 @@
-package com.yuanmh.controller.logincontroller;
+package com.yuanmh.controller.login;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;

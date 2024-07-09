@@ -47,7 +47,8 @@
                     //     如果登录成功将数据返回到主页
                     let code = result.data.code;
                     if (code === 200) {
-                        localStorage.setItem('user', result.data.data);
+                        localStorage.setItem('user', JSON.stringify(result.data.data));
+                        //将登录的用户信息存入localStorage 跳转到list页面
                         //     跳转到帖子列表
                         location.href = '/community/pages/list.html';
                     } else {

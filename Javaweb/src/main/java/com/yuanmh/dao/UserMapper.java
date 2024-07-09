@@ -41,4 +41,16 @@ public class UserMapper {
         }
     }
 
+    /**
+     * 通过id获取用户信息
+     *
+     * @param id 用户id
+     * @return 用户对象
+     */
+    public User selectUserById(int id) throws Exception {
+        String sql = "select * from user where id = ?";
+        List<User> users = baseMapper.queryMany(sql, User.class, id);
+        return users.getFirst();
+    }
+
 }

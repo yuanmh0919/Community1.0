@@ -1,4 +1,4 @@
-package com.yuanmh.controller.logincontroller;
+package com.yuanmh.controller.login;
 
 import com.alibaba.fastjson.JSON;
 import com.yuanmh.entity.User;

@@ -42,4 +42,9 @@ public interface Constant {
      */
     int REGISTER_FAILED = -5;
 
+    /**
+     * 暂无帖子
+     */
+    int NO_POST = 1;
+
 }

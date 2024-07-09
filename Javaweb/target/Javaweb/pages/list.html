@@ -3,9 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>社区帖子列表</title>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/axios.min.js"></script>
 </head>
 <body>
-list
+<div id="app">
+    <!--    显示登录信息-->
+    <h2>欢迎来到社区,<span v-text="userInfo.username"></span></h2>
+    <img :src="userInfo.img" alt="头像" width="50px" height="50px">
+    <hr>
+    <h3 align="center">社区帖子列表</h3>
+    <table border="1" align="center" width="80%">
+        <tr>
+            <th>编号</th>
+            <th>作者</th>
+            <th>标题</th>
+            <th>状态</th>
+            <th>创建时间</th>
+        </tr>
+        <!--        循环显示帖子列表-->
+        <tr v-for="post in postList">
+            <td>{{post.id}}</td>
+            <td>{{post.username}}</td>
+            <td>{{post.title}}</td>
+            <td>{{post.status | statusFilter}}</td>
+            <td>{{post.create_time}}</td>
+        </tr>
+    </table>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            userInfo: {
+                username: '',
+                img: ''
+            },
+            postList: [],
+            pageInfo: {
+                currentPage: 1,
+                pageSize: 10,
+            },
+        },
+        created: function () {
+            this.getLoginInfo();
+            this.getPostList();
+        },
+        methods: {
+            // 获取登录信息
+            getLoginInfo: function () {
+                //获取localStorage.setItem('user', JSON.stringify(result.data.data));中的数据
+                let user = JSON.parse(localStorage.getItem('user'));
+                console.log(user);
+                this.userInfo.username = user.username;
+                this.userInfo.img = user.header_url;
+            },
+            //获取帖子信息
+            getPostList: function () {
+                axios({
+                    method: 'get',
+                    url: '/community/postList',
+                    params: {
+                        currentPage: this.pageInfo.currentPage,
+                        pageSize: this.pageInfo.pageSize
+                    },
+                }).then((result) => {
+                        let code = result.data.code;
+                        if (code === 200) {
+                            this.postList = result.data.data;
+                        }
+                    }
+                )
+                ;
+            },
+        },
+        //     添加过滤器 状态 0：普通 1：精华 2：拉黑
+        filters: {
+            statusFilter: function (status) {
+                if (status === 0) {
+                    return '普通';
+                } else if (status === 1) {
+                    return '精华';
+                } else {
+                    return '拉黑';
+                }
+            },
+        }
+    });
+</script>
 
 </body>
 </html>
