@@ -7,9 +7,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Index</title>
 </head>
 <body>
-
+<a href="/community/pages/login.html">登录系统</a><br>
+<a href="/community/pages/register.html">注册</a>
 </body>
 </html>

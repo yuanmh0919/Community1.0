@@ -17,6 +17,12 @@ public interface Constant {
     int CAPTCHA_IS_EMPTY = -1;
 
     /**
+     * 验证码错误
+     */
+    int CAPTCHA_ERROR = -6;
+
+
+    /**
      * 用户名或者密码错误
      */
     int USERNAME_OR_PASSWORD_ERROR = -2;

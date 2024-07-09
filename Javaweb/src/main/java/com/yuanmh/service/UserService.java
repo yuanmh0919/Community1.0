@@ -38,7 +38,9 @@ public class UserService implements Constant {
     public Result findUserByUsername(String username) throws Exception {
         User user = userMapper.selectUserByUsername(username);
         if (user != null) {
-            return new Result(Constant.USER_ALREADY_EXIST, "用户已存在");
+            Result result = new Result(USER_ALREADY_EXIST, "用户已存在");
+            result.setData(user);
+            return result;
         } else {
             return new Result();
         }

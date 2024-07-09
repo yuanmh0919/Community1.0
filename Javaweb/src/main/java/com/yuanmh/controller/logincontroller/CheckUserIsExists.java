@@ -37,6 +37,5 @@ public class CheckUserIsExists extends HttpServlet implements Constant {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
