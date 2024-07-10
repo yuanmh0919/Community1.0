@@ -9,10 +9,25 @@
 <body>
 <div id="app">
     <!--    显示登录信息-->
-    <h2>欢迎来到社区,<span v-text="userInfo.username"></span></h2>
-    <img :src="userInfo.img" alt="头像" width="50px" height="50px">
+    <h2>欢迎来到社区,
+        <img :src="userInfo.img" alt="头像" width="30px" height="30px">
+        <span v-text="userInfo.username"></span>
+    </h2>
+
     <hr>
     <h3 align="center">社区帖子列表</h3>
+    <!--    条件搜索 根据作者 标题 状态 查询-->
+    <div align="center">
+        <input type="text" name="username" placeholder="作者" v-model="searchParams.author">
+        <input type="text" name="title" placeholder="标题" v-model="searchParams.title">
+        <select name="status" v-model="searchParams.status">
+            <option value=-1>全部</option>
+            <option value=0>普通</option>
+            <option value=1>精华</option>
+            <option value=2>拉黑</option>
+        </select>
+        <button @click="getPostList()">搜索</button>
+    </div>
     <table border="1" align="center" width="80%">
         <tr>
             <th>编号</th>
@@ -26,10 +41,24 @@
             <td>{{post.id}}</td>
             <td>{{post.username}}</td>
             <td>{{post.title}}</td>
-            <td>{{post.status | statusFilter}}</td>
+            <!-- 如果状态为1 加上红色的字体 如果不是则显示普通字体-->
+            <td v-if="post.status === 1" style="color: red">{{post.status | statusFilter}}</td>
+            <td v-else>{{post.status | statusFilter}}</td>
             <td>{{post.create_time}}</td>
         </tr>
     </table>
+    <!--        分页-->
+    <div align="center">
+        <!--        首页、上一页、当前页、下一页、尾页-->
+        <button v-if="pageInfo.currentPage > 1" @click="getPostList(1)">首页</button>
+        <button v-if="pageInfo.currentPage > 1" @click="getPostList(pageInfo.currentPage -1)">上一页
+        </button>
+        <span>当前第{{pageInfo.currentPage}}页/共{{pageInfo.totalCount}}页</span>
+        <button v-if="pageInfo.currentPage < pageInfo.totalCount" @click="getPostList(pageInfo.currentPage +1)">下一页
+        </button>
+        <button v-if="pageInfo.currentPage < pageInfo.totalCount" @click="getPostList(pageInfo.totalCount)">尾页
+        </button>
+    </div>
 </div>
 <script>
     new Vue({
@@ -42,12 +71,17 @@
             postList: [],
             pageInfo: {
                 currentPage: 1,
-                pageSize: 10,
+                totalCount: 0,
             },
+            searchParams: {
+                author: '',
+                title: '',
+                status: -1,
+            }
         },
         created: function () {
             this.getLoginInfo();
-            this.getPostList();
+            this.getPostList(1);
         },
         methods: {
             // 获取登录信息
@@ -58,19 +92,27 @@
                 this.userInfo.username = user.username;
                 this.userInfo.img = user.header_url;
             },
-            //获取帖子信息
-            getPostList: function () {
+            //获取帖子信息 并分页
+            getPostList: function (currentPage) {
+                this.pageInfo.currentPage = currentPage || 1;
                 axios({
                     method: 'get',
                     url: '/community/postList',
                     params: {
-                        currentPage: this.pageInfo.currentPage,
-                        pageSize: this.pageInfo.pageSize
+                        author: this.searchParams.author,
+                        title: this.searchParams.title,
+                        status: this.searchParams.status,
+                        currentPage: currentPage || 1,
                     },
                 }).then((result) => {
                         let code = result.data.code;
                         if (code === 200) {
-                            this.postList = result.data.data;
+                            this.postList = result.data.data.discussPosts;
+                            this.pageInfo.totalCount = result.data.data.totalCount;
+                        } else if (code === 1) {
+                            this.postList = [];
+                            this.pageInfo.totalCount = 0;
+                            alert(result.data.message)
                         }
                     }
                 )
