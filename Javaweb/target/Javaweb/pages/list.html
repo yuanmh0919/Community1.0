@@ -40,7 +40,8 @@
         <tr v-for="post in postList">
             <td>{{post.id}}</td>
             <td>{{post.username}}</td>
-            <td>{{post.title}}</td>
+            <!--    点击帖子标题 跳转到帖子详细页面-->
+            <td @click="getPostDetail(post.id)">{{post.title}}</td>
             <!-- 如果状态为1 加上红色的字体 如果不是则显示普通字体-->
             <td v-if="post.status === 1" style="color: red">{{post.status | statusFilter}}</td>
             <td v-else>{{post.status | statusFilter}}</td>
@@ -117,6 +118,22 @@
                     }
                 )
                 ;
+            },
+            //获取帖子详情
+            getPostDetail: function (id) {
+                axios({
+                    method: 'get',
+                    url: '/community/postDetail',
+                    params: {
+                        id: id,
+                    }
+                }).then((result) => {
+                    //将查询帖子结果封装到localStorage 跳转到帖子详情页面
+                    let post = result.data.data;
+                    localStorage.setItem('post', JSON.stringify(post));
+                    window.location.href = '/community/pages/postDetail.html';
+
+                });
             },
         },
         //     添加过滤器 状态 0：普通 1：精华 2：拉黑

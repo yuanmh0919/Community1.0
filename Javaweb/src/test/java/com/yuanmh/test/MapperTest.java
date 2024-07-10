@@ -27,4 +27,15 @@ public class MapperTest {
             throw new RuntimeException(e);
         }
     }
+
+
+    @Test
+    public void testSelectDiscussPostById() {
+        try {
+            DiscussPost discussPost = discussPostMapper.selectDiscussPostById(281);
+            System.out.println(discussPost);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

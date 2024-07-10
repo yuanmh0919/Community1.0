@@ -22,9 +22,7 @@ public class DiscussPostMapper {
 //         left join user on post.user_id = user.id
 //limit 10;
     public List<DiscussPost> selectAllDiscussPost(int offset, int limit) throws Exception {
-        String sql = "select post.*, user.username from discuss_post post " +
-                "left join user on post.user_id = user.id " +
-                "order by post.id desc limit ?,?";
+        String sql = "select post.*, user.username from discuss_post post " + "left join user on post.user_id = user.id " + "order by post.id desc limit ?,?";
         return baseMapper.queryMany(sql, DiscussPost.class, offset, limit);
     }
 
@@ -42,11 +40,7 @@ public class DiscussPostMapper {
      * <p>
      */
     public List<DiscussPost> selectDiscussPostByAuthorAndTitleAndStatus(String author, String title, Integer status, int offset, int limit) throws Exception {
-        StringBuilder sql = new StringBuilder("select discuss.* " +
-                "from (select post.*, user.username " +
-                "from discuss_post post " +
-                "left join user on post.user_id = user.id) " +
-                "as discuss where 1=1 ");
+        StringBuilder sql = new StringBuilder("select discuss.* " + "from (select post.*, user.username " + "from discuss_post post " + "left join user on post.user_id = user.id) " + "as discuss where 1=1 ");
         List<Object> param = new ArrayList<>();
         if (author != null && !author.trim().isEmpty()) {
             sql.append(" and discuss.username like ? ");
@@ -71,11 +65,7 @@ public class DiscussPostMapper {
      * 查询总数
      */
     public int selectDiscussPostCount(String author, String title, Integer status) throws Exception {
-        StringBuilder sql = new StringBuilder("select discuss.* " +
-                "from (select post.*, user.username " +
-                "from discuss_post post " +
-                "left join user on post.user_id = user.id) " +
-                "as discuss where 1=1 ");
+        StringBuilder sql = new StringBuilder("select discuss.* " + "from (select post.*, user.username " + "from discuss_post post " + "left join user on post.user_id = user.id) " + "as discuss where 1=1 ");
         List<Object> param = new ArrayList<>();
         if (author != null && !author.trim().isEmpty()) {
             sql.append(" and discuss.username like ? ");
@@ -92,5 +82,22 @@ public class DiscussPostMapper {
         return baseMapper.queryMany(sql.toString(), DiscussPost.class, param.toArray()).size();
 
     }
+
+    /**
+     * 根据id查找帖子
+     *
+     * @param id 帖子id
+     * @return 帖子
+     */
+    public DiscussPost selectDiscussPostById(int id) throws Exception {
+        String sql = "select post.*, user.username " +
+                "from discuss_post post " +
+                "     left join user on post.user_id = user.id " +
+                "where post.id =? ";
+        List<DiscussPost> discussPosts = baseMapper.queryMany(sql, DiscussPost.class, id);
+        return discussPosts.getFirst();
+
+    }
+
 
 }

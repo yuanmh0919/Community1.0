@@ -60,4 +60,18 @@ public class DiscussPostService implements Constant {
     }
 
 
+    /**
+     * 根据帖子id查询帖子
+     */
+    public Result findDiscussPostById(int id) throws Exception {
+        DiscussPost discussPost = discussPostMapper.selectDiscussPostById(id);
+        if (discussPost == null) {
+            return new Result(NO_POST, "帖子不存在");
+        }
+        Result result = new Result();
+        result.setData(discussPost);
+        return result;
+    }
+
+
 }
