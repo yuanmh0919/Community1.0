@@ -38,4 +38,15 @@ public class MapperTest {
             throw new RuntimeException(e);
         }
     }
+
+
+    @Test
+    public void testDeleteDiscussPostById() {
+        try {
+            int i = discussPostMapper.deleteDiscussPostById(290);
+            System.out.println(i == 1 ? "删除成功" : "删除失败");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

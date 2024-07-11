@@ -53,4 +53,15 @@ public class UserMapper {
         return users.getFirst();
     }
 
+    /**
+     * 更新用户信息
+     *
+     * @param user 用户对象
+     * @return 受影响的行数
+     */
+    public int updateUser(User user) throws Exception {
+        String sql = "update user set username =?, password =?, header_url =? where id = ?";
+        return baseMapper.cudMethod(sql, user.getUsername(), user.getPassword(), user.getHeader_url(), user.getId());
+    }
+
 }

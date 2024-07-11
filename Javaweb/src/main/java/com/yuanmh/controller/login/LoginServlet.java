@@ -56,6 +56,8 @@ public class LoginServlet extends HttpServlet implements Constant {
             if (md5Password.equals(user.getPassword())) {
                 //登录成功
                 result.setCode(SUCCESS);
+                //登录成功之后 将用户信息存入session
+                req.getSession().setAttribute("user", user);
             } else {
                 result.setCode(USERNAME_OR_PASSWORD_ERROR);
                 result.setMessage("密码错误");

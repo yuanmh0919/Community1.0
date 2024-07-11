@@ -38,7 +38,7 @@ public class UserService implements Constant {
     public Result findUserByUsername(String username) throws Exception {
         User user = userMapper.selectUserByUsername(username);
         if (user != null) {
-            Result result = new Result(USER_ALREADY_EXIST, "用户已存在");
+            Result result = new Result(USER_ALREADY_EXIST, "用户已存在");//-4
             result.setData(user);
             return result;
         } else {
@@ -50,17 +50,33 @@ public class UserService implements Constant {
      * 根据用户id查询用户
      *
      * @param id 用户id
-     * @return 用户对象
+     * @return result
      */
     public Result findUserById(int id) throws Exception {
         User user = userMapper.selectUserById(id);
         if (user != null) {
-            Result result = new Result();
+            Result result = new Result();//200
             result.setData(user);
             return result;
         } else {
-            return new Result(USER_NOT_EXIST, "用户不存在");
+            return new Result(USER_NOT_EXIST, "用户不存在");//-3
         }
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param user 用户对象
+     * @return 更新结果
+     */
+    public Result updateUser(User user) throws Exception {
+        Result result = new Result();
+        int i = userMapper.updateUser(user);
+        if (i == 1) {
+            result.setData(user);
+            return result;
+        }
+        return new Result(UPDATE_FAILED, "更新失败");
     }
 
 }

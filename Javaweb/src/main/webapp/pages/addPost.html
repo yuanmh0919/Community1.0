@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增帖子</title>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/axios.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h1>新增帖子</h1>
+    <form action="javascript:void(0);">
+        <!--        隐藏提交用户id-->
+        <input type="hidden" name="userId" v-model="id">
+        <input type="text" name="title" placeholder="标题" v-model="title"><br>
+        <textarea name="content" placeholder="内容" v-model="content"></textarea><br>
+        <input type="button" value="提交" @click="addPost">
+    </form>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            title: '',
+            content: ''
+        },
+        methods: {
+            addPost: function () {
+                let user = JSON.parse(localStorage.getItem('user'));
+                axios({
+                    method: 'post',
+                    url: '/community/addPost',
+                    params: {
+                        id: user.id,
+                        title: this.title,
+                        content: this.content
+                    }
+                }).then((result) => {
+                    if (result.data.code === 200) {
+                        alert('发布成功');
+                        window.location.href = '/community/pages/list.html';
+                    }
+                });
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

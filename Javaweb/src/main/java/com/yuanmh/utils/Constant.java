@@ -47,4 +47,20 @@ public interface Constant {
      */
     int NO_POST = 1;
 
+    /**
+     * 更新失败
+     */
+    int UPDATE_FAILED = -7;
+
+
+    /**
+     * 删除失败
+     */
+    int DELETE_FAILED = -8;
+
+    /**
+     * 添加失败
+     */
+    int ADD_FAILED = -9;
+
 }

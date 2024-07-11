@@ -73,5 +73,30 @@ public class DiscussPostService implements Constant {
         return result;
     }
 
+    /**
+     * 根据id删除帖子
+     */
+    public Result deleteDiscussPostById(int id) throws Exception {
+        int i = discussPostMapper.deleteDiscussPostById(id);
+        if (i == 1) {
+            return new Result(SUCCESS, "删除成功");
+        } else {
+            return new Result(DELETE_FAILED, "删除失败");
+        }
+    }
+
+    /**
+     * 添加帖子
+     */
+
+    public Result addDiscussPost(DiscussPost discussPost) throws Exception {
+        int i = discussPostMapper.insertDiscussPost(discussPost);
+        if (i == 1) {
+            return new Result(SUCCESS, "添加成功");
+        }else {
+            return new Result(ADD_FAILED, "添加失败");
+        }
+
+    }
 
 }

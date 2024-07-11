@@ -57,7 +57,7 @@ public class DiscussPostMapper {
         sql.append(" order by discuss.id desc limit ?,? ");
         param.add(offset);
         param.add(limit);
-        System.out.println(sql.toString());
+//        System.out.println(sql.toString());
         return baseMapper.queryMany(sql.toString(), DiscussPost.class, param.toArray());
     }
 
@@ -90,13 +90,26 @@ public class DiscussPostMapper {
      * @return 帖子
      */
     public DiscussPost selectDiscussPostById(int id) throws Exception {
-        String sql = "select post.*, user.username " +
-                "from discuss_post post " +
-                "     left join user on post.user_id = user.id " +
-                "where post.id =? ";
+        String sql = "select post.*, user.username " + "from discuss_post post " + "     left join user on post.user_id = user.id " + "where post.id =? ";
         List<DiscussPost> discussPosts = baseMapper.queryMany(sql, DiscussPost.class, id);
         return discussPosts.getFirst();
 
+    }
+
+    /**
+     * 根据id删除帖子
+     */
+    public int deleteDiscussPostById(int id) throws Exception {
+        String sql = "delete from discuss_post where id =?";
+        return baseMapper.cudMethod(sql, id);
+    }
+
+    /**
+     * 添加帖子
+     */
+    public int insertDiscussPost(DiscussPost discussPost) throws Exception {
+        String sql = "insert into discuss_post(user_id,title, content,type,status,create_time,comment_count,score) values(?,?,?,0,0,now(),0,0)";
+        return baseMapper.cudMethod(sql, discussPost.getUser_id(), discussPost.getTitle(), discussPost.getContent());
     }
 
 

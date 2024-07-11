@@ -32,6 +32,12 @@ public class DiscussPost {
     public DiscussPost() {
     }
 
+    public DiscussPost(String user_id, String title, String content) {
+        this.user_id = user_id;
+        this.title = title;
+        this.content = content;
+    }
+
     public DiscussPost(String user_id, String title, String content, Integer type, Integer status, Date create_time, Integer comment_count, Double score) {
         this.user_id = user_id;
         this.title = title;
