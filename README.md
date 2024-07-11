@@ -1,2 +1,3 @@
 # NowcoderCommunity
-仿牛客社区，从Javaweb到SpringBoot开发
+
+社区论坛，Servlet+Vue+MySQl+Druid版
