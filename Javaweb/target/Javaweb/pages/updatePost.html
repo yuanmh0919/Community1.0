@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更新帖子</title>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>更新帖子</h1>
+    <form action="javascrip:void(0);">
+        <input type="hidden" name="id" v-model="post.id">
+        <input type="text" name="title" v-model="post.title" placeholder="请输入标题"><br>
+        <textarea name="content" v-model="post.content" placeholder="请输入内容"></textarea><br>
+        <p>作者：{{ post.username }}</p>
+        <p>发布时间：{{ post.createTime }}</p>
+        <button type="button" @click="updatePost">更新</button>
+    </form>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            post: {
+                id: '',
+                title: '',
+                content: '',
+                username: '',
+                createTime: ''
+            }
+        },
+        created: function () {
+            this.showPostDetail();
+        },
+        methods: {
+            showPostDetail: function () {
+                //获取帖子详细信息
+                //     localStorage.setItem('post', JSON.stringify(post));
+                let post = JSON.parse(localStorage.getItem('post'));
+                this.post.id = post.id;
+                this.post.title = post.title;
+                this.post.content = post.content;
+                this.post.username = post.username;
+                this.post.createTime = post.create_time;
+            },
+            updatePost: function () {
+                //更新帖子
+                axios({
+                    method: 'post',
+                    url: '/community/updatePost',
+                    params: {
+                        id: this.post.id,
+                        title: this.post.title,
+                        content: this.post.content,
+                    }
+                }).then((result) => {
+                    if (result.data.code === 200) {
+                        alert('更新成功');
+                        //跳转到帖子列表
+                        window.location.href = '/community/pages/list.html';
+                    } else {
+                        alert('更新失败');
+                    }
+
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

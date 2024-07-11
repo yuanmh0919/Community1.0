@@ -37,7 +37,7 @@ public class LoginFilter implements Filter {
         if (uri.contains("login.html") || uri.contains("register.html")) {
             filterChain.doFilter(request, response);
         }
-        if (uri.contains("/list.html") || uri.contains("/postDetail.html") || uri.contains("/updateUser.html") || uri.contains("/addPost.html")) {
+        if (uri.contains("/list.html") || uri.contains("/postDetail.html") || uri.contains("/updateUser.html") || uri.contains("/addPost.html") || uri.contains("/updatePost.html")) {
             //判断是否登录
             User user = (User) request.getSession().getAttribute("user");
             if (user != null) {

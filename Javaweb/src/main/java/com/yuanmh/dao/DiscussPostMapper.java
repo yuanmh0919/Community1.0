@@ -112,5 +112,13 @@ public class DiscussPostMapper {
         return baseMapper.cudMethod(sql, discussPost.getUser_id(), discussPost.getTitle(), discussPost.getContent());
     }
 
+    /**
+     * 根据帖子id更新帖子
+     */
+    public int updateDiscussPost(DiscussPost discussPost) throws Exception {
+        String sql = "update discuss_post set title =?, content =? where id = ?";
+        return baseMapper.cudMethod(sql, discussPost.getTitle(), discussPost.getContent(), discussPost.getId());
+    }
+
 
 }

@@ -93,10 +93,22 @@ public class DiscussPostService implements Constant {
         int i = discussPostMapper.insertDiscussPost(discussPost);
         if (i == 1) {
             return new Result(SUCCESS, "添加成功");
-        }else {
+        } else {
             return new Result(ADD_FAILED, "添加失败");
         }
+    }
 
+    /**
+     * 根据id更新帖子
+     */
+    public Result updateDiscussPost(DiscussPost discussPost) throws Exception {
+        Result result = new Result();
+        int i = discussPostMapper.updateDiscussPost(discussPost);
+        if (i != 1) {
+            result.setCode(UPDATE_FAILED);
+            result.setMessage("更新失败");
+        }
+        return result;
     }
 
 }
