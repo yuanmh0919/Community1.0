@@ -11,7 +11,6 @@
     <h1>更新用户信息</h1>
     <form action="/community/updateUser" enctype="multipart/form-data" method="post">
         <!--        隐藏用户id-->
-
         <input type="hidden" name="id" v-model="id"><br>
         <input type="text" placeholder="用户名" name="username" v-model="username"><br>
         <input type="password" placeholder="密码" name="password" v-model="password"><br>
@@ -37,13 +36,13 @@
             getUserInfo: function () {
                 //获取之前封装的user信息
                 let user = JSON.parse(localStorage.getItem('user'));
+                // let user = JSON.parse(sessionStorage.getItem('user'));
                 this.id = user.id;
                 this.username = user.username;
                 this.password = user.password;
                 this.img = user.img;
-            }
+            },
         },
-
     });
 </script>
 </body>

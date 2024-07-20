@@ -10,7 +10,15 @@
     <title>Index</title>
 </head>
 <body>
-<a href="/community/pages/login.html">登录系统</a><br>
-<a href="/community/pages/register.html">注册</a>
+<div align="center">
+    <h1>欢迎来到社区论坛系统</h1>
+    <h3>
+        <br><br>
+        <a href="/community/pages/login.html">登录系统</a><br><br>
+        <a href="/community/pages/register.html">注册</a>
+    </h3>
+
+</div>
+
 </body>
 </html>

@@ -12,14 +12,15 @@ public interface Constant {
     int SUCCESS = 200;
 
     /**
+     * 暂无帖子
+     */
+    int NO_POST = 1;
+
+
+    /**
      * 验证码为空
      */
     int CAPTCHA_IS_EMPTY = -1;
-
-    /**
-     * 验证码错误
-     */
-    int CAPTCHA_ERROR = -6;
 
 
     /**
@@ -43,9 +44,9 @@ public interface Constant {
     int REGISTER_FAILED = -5;
 
     /**
-     * 暂无帖子
+     * 验证码错误
      */
-    int NO_POST = 1;
+    int CAPTCHA_ERROR = -6;
 
     /**
      * 更新失败

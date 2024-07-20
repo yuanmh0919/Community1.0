@@ -11,7 +11,7 @@
     <h1>{{ post.title}}</h1>
     <p>{{ post.content }}</p>
     <p>作者：{{ post.username }}</p>
-    <p>发布时间：{{ post.createTime }}</p>
+    <p>发布时间：{{formatDate(post.createTime)}}</p>
 </div>
 <script>
     new Vue({
@@ -36,6 +36,14 @@
                 this.post.content = post.content;
                 this.post.username = post.username;
                 this.post.createTime = post.create_time;
+            },
+            formatDate: function (dateString) {
+                if (!dateString) return '';
+                let date = new Date(dateString);
+                let year = date.getFullYear();
+                let month = ('0' + (date.getMonth() + 1)).slice(-2);
+                let day = ('0' + date.getDate()).slice(-2);
+                return `${year}-${month}-${day}`;
             }
         }
     });

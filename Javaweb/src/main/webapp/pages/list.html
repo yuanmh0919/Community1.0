@@ -10,7 +10,7 @@
 <div id="app">
     <!--    显示登录信息-->
     <h2>欢迎来到社区,
-        <img :src="userInfo.img" alt="头像" width="30px" height="30px">
+        <img :src="userInfo.img" alt="(头像未找到...)" width="30px" height="30px">
         <span v-text="userInfo.username"></span>
         <!--        退出系统-->
         <button @click="logout">退出</button>
@@ -104,14 +104,23 @@
             getLoginInfo: function () {
                 //获取localStorage.setItem('user', JSON.stringify(result.data.data));中的数据
                 let user = JSON.parse(localStorage.getItem('user'));
-                //获取session中的数据
-                let updateUser = JSON.parse(sessionStorage.getItem('user'));
-                if (updateUser != null) {
-                    user = updateUser;
-                }
+                console.log("user=");
                 console.log(user);
-                this.userInfo.username = user.username;
-                this.userInfo.img = user.header_url;
+
+                //获取session
+                // let updateUser = JSON.parse(sessionStorage.getItem('updateUser'));
+                // 获取cookie
+                let updateUser = JSON.parse(localStorage.getItem('updateUser'));
+                console.log("updateUser=");
+                console.log(updateUser);
+                if (updateUser != null) {
+                    this.userInfo.username = updateUser.username;
+                    this.userInfo.img = updateUser.header_url;
+                    // sessionStorage.removeItem('updateUser');
+                } else {
+                    this.userInfo.username = user.username;
+                    this.userInfo.img = user.header_url;
+                }
             },
             //获取帖子信息 并分页
             getPostList: function (currentPage) {

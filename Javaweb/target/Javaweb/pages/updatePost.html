@@ -14,7 +14,7 @@
         <input type="text" name="title" v-model="post.title" placeholder="请输入标题"><br>
         <textarea name="content" v-model="post.content" placeholder="请输入内容"></textarea><br>
         <p>作者：{{ post.username }}</p>
-        <p>发布时间：{{ post.createTime }}</p>
+        <p>发布时间：{{formatDate(post.createTime)}}</p>
         <button type="button" @click="updatePost">更新</button>
     </form>
 </div>
@@ -64,6 +64,14 @@
                     }
 
                 });
+            },
+            formatDate: function (dateString) {
+                if (!dateString) return '';
+                let date = new Date(dateString);
+                let year = date.getFullYear();
+                let month = ('0' + (date.getMonth() + 1)).slice(-2);
+                let day = ('0' + date.getDate()).slice(-2);
+                return `${year}-${month}-${day}`;
             }
         }
     });

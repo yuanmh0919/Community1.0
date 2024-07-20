@@ -9,10 +9,7 @@ import com.yuanmh.vo.Result;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
@@ -53,13 +50,13 @@ public class UpdateUserServlet extends HttpServlet implements Constant {
                 user.setHeader_url(getServletContext().getContextPath() + "/static/img/" + imgName);
             }
             result = userService.updateUser(user);
-            //更新session
-            req.getSession().setAttribute("user", user);
-            //重定向到list.html
-            resp.sendRedirect(req.getContextPath() + "/pages/list.html");
+            result = userService.findUserById(id);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         resp.getWriter().write(JSON.toJSONString(result));
+        //重定向到list.html
+        resp.sendRedirect(req.getContextPath() + "/pages/login.html");
     }
 }

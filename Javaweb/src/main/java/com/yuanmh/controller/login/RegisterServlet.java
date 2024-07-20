@@ -52,6 +52,8 @@ public class RegisterServlet extends HttpServlet implements Constant {
             result.setData(user);
             //返回前端页面
             resp.getWriter().write(JSON.toJSONString(result));
+            //跳转登录页面
+            resp.sendRedirect(req.getContextPath() + "/pages/login.html");
         } catch (Exception e) {
             e.printStackTrace();
         }

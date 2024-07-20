@@ -2,8 +2,14 @@ package com.yuanmh.test;
 
 import com.yuanmh.dao.DiscussPostMapper;
 import com.yuanmh.entity.DiscussPost;
+import com.yuanmh.utils.BaseMapper;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,6 +19,7 @@ import java.util.List;
  */
 
 public class MapperTest {
+    private BaseMapper baseMapper = new BaseMapper();
 
     private DiscussPostMapper discussPostMapper = new DiscussPostMapper();
 
@@ -49,4 +56,18 @@ public class MapperTest {
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    public void testTime() {
+        LocalDateTime now = LocalDateTime.now();
+
+        // 定义时间格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // 格式化当前时间
+        String formattedDateTime = now.format(formatter);
+
+        // 输出格式化后的时间
+        System.out.println("当前时间: " + formattedDateTime);
+    }
+
 }

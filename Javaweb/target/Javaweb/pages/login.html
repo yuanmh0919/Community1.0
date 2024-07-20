@@ -8,16 +8,21 @@
 </head>
 <body>
 <div id="app">
-    <form action="javascrip:void(0);">
-        <input type="text" name="username" placeholder="用户名" v-model="loginData.username"><br>
-        <input type="password" name="password" placeholder="密码" v-model="loginData.password">
-        <span v-if="error.code===-2" style="color: red">{{error.msg}}</span><br>
-        <!--        验证码-->
-        <input type="text" name="captcha" placeholder="验证码" v-model="loginData.captcha">
-        <span v-if="error.code===-1 || error.code===-6" style="color: red">{{error.msg}}</span><br>
-        <img src="/community/captcha" onclick="this.src='/community/captcha?'+Math.random()" alt="验证码"><br>
-        <input type="button" value="登录" @click="login">
-    </form>
+    <div align="center">
+        <h1>登录系统</h1>
+        <form action="javascrip:void(0);">
+            <input type="text" name="username" placeholder="用户名" v-model="loginData.username"><br>
+            <input type="password" name="password" placeholder="密码" v-model="loginData.password">
+            <span v-if="error.code===-2" style="color: red">{{error.msg}}</span><br>
+            <!--        验证码-->
+            <input type="text" name="captcha" placeholder="验证码" v-model="loginData.captcha">
+            <span v-if="error.code===-1 || error.code===-6" style="color: red">{{error.msg}}</span><br>
+
+            <img src="/community/captcha" onclick="this.src='/community/captcha?'+Math.random()" alt="验证码"><br>
+            <input type="button" value="登录" @click="login">
+            <button><a href="/community/pages/register.html">注册</a></button>
+        </form>
+    </div>
 </div>
 <script>
     new Vue({
@@ -47,6 +52,7 @@
                     //     如果登录成功将数据返回到主页
                     let code = result.data.code;
                     if (code === 200) {
+                        // sessionStorage.setItem('user', JSON.stringify(result.data.data))
                         localStorage.setItem('user', JSON.stringify(result.data.data));
                         //将登录的用户信息存入localStorage 跳转到list页面
                         //     跳转到帖子列表
